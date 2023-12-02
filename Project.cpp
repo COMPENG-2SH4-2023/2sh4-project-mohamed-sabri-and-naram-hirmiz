@@ -7,6 +7,8 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
+const int width = 20;
+const int height = 10;
 bool exitFlag;
 
 void Initialize(void);
@@ -57,7 +59,30 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();    
+    objPos map(0, 0, '#');
 
+    // Draw the top and bottom borders
+   for(int i =0; i<height; i++){
+    for(int j = 0; j<width; j++){
+        if(i == 0){
+            map.setObjPos(i, 0, '#');
+        }
+        else if(i == height -1){
+            map.setObjPos(i, width-1, '#');
+        }
+        else if(j == 0){
+            map.setObjPos(0, j, '#');
+        }
+        else if(j == width -1){
+            map.setObjPos(height-1,j,'#');
+        }else{
+            map.setObjPos(i,j,' ');
+        }
+        map.getObjPos(map);
+        MacUILib_printf("%c", map.getSymbol());
+    }
+    MacUILib_printf("\n");
+   }
 }
 
 void LoopDelay(void)
