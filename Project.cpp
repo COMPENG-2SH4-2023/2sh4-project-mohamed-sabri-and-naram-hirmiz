@@ -7,8 +7,8 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
-const int width = 20;
-const int height = 10;
+const int width = 30;
+const int height = 15;
 bool exitFlag;
 
 void Initialize(void);
