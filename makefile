@@ -12,5 +12,5 @@ ${EXEC} : $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) ${POSTLINKER}
 
 clean :
-	rm -r ${OBJ} ${EXEC} ${EXEC}.exe
+	del *.o" and "del *.exe
 
