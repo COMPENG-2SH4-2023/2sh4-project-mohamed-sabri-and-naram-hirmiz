@@ -22,8 +22,9 @@ class Food
         Food();
         ~Food();
 
-        // void generateFood(blockoff:objPos)
-        // void getFoodPos(returnPos:objPos&)
+        void generateFood(objPos blockOff);
+        void getFoodPos(objPos &returnPos);
+        void setGameMechs(GameMechs* gameMechs);
 
 };
 

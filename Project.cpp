@@ -2,7 +2,8 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"  
-#include "Player.h"  
+#include "Player.h" 
+#include "Food.h" 
 
 
 using namespace std;
@@ -13,6 +14,7 @@ using namespace std;
 // all global variabes to be removed
 GameMechs* gameMechsPtr;
 Player* PlayerPtr;
+Food* FoodPtr;
 
 // const int width = 30;
 // const int height = 15;
@@ -31,7 +33,7 @@ int main(void)
 {
 
     Initialize();
-    
+
     while(!gameMechsPtr->getExitFlagStatus())  
     {
         GetInput();
@@ -51,7 +53,11 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     gameMechsPtr = new GameMechs(30, 15);
+    FoodPtr = new Food();
+
+    objPos playerPos;
     PlayerPtr = new Player(gameMechsPtr);
+    FoodPtr->generateFood(playerPos);
 
     //exitflag = false
 }
@@ -73,6 +79,8 @@ void DrawScreen(void)
     MacUILib_clearScreen();    
     objPos map(0, 0, '#');
     objPos playerPos;
+
+    // Draw the top and bottom borders
     for(int i = 0; i < gameMechsPtr->getBoardSizeY(); i++){
         for(int j = 0; j < gameMechsPtr->getBoardSizeX(); j++){
             if(i == 0 || i == gameMechsPtr->getBoardSizeY() - 1 || j == 0 || j == gameMechsPtr->getBoardSizeX() - 1){
@@ -92,6 +100,7 @@ void DrawScreen(void)
         }
     MacUILib_printf("\n");
    }
+
 }
 
 void LoopDelay(void)
