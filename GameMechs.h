@@ -23,19 +23,18 @@ class GameMechs
         bool exitFlag;
         bool loseflag;
         int score;
-        objPos foodPos;
+
         int boardSizeX;
         int boardSizeY;
 
     public:
-        
+
         // constructor
         GameMechs();
         GameMechs(int boardX, int boardY);
         ~GameMechs(); // destructor
-        
-        void generateFood(objPos blockoff);
-        void getFoodPos(objPos &returnPos);
+
+
         // Getter and Setter for Exit Flag
         bool getExitFlagStatus();
         void setExitTrue();
