@@ -31,7 +31,7 @@ int main(void)
 {
 
     Initialize();
-
+    
     while(!gameMechsPtr->getExitFlagStatus())  
     {
         GetInput();
@@ -58,24 +58,14 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    char input;
-    
-    if (MacUILib_hasChar())
-    {
-        input = MacUILib_getChar();
-        gameMechsPtr->setInput(input); 
-    }
+    gameMechsPtr->getInput();
 }
 
 void RunLogic(void)
 {
-    if (gameMechsPtr->ExitButtonPressed()) { //if exit button is pressed, set exitflag = true and terminate the game
-        gameMechsPtr->setExitTrue(); 
-    } else {
-        PlayerPtr->updatePlayerDir(); //else continue the game
-        PlayerPtr->movePlayer();
-        //DrawScreen();
-    }
+    PlayerPtr->updatePlayerDir(); //else continue the game
+    PlayerPtr->movePlayer();
+    //DrawScreen();
 }
 
 void DrawScreen(void)

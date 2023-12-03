@@ -1,4 +1,5 @@
 #include "GameMechs.h"
+#include "MacUILib.h"
 
 GameMechs::GameMechs()
 {
@@ -24,13 +25,20 @@ bool GameMechs::getExitFlagStatus()
     return exitFlag;
 }
 
-bool GameMechs::ExitButtonPressed()
-{
-    return getInput() == '/';
-}
-
 char GameMechs::getInput()
 {
+    if (MacUILib_hasChar())
+    {
+        char input = MacUILib_getChar();
+        setInput(input);
+
+        if(input == '/') 
+        {
+            setExitTrue();
+        }
+
+    }
+
     return input;
 }
 
