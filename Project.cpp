@@ -52,6 +52,7 @@ void Initialize(void)
 
     gameMechsPtr = new GameMechs(30, 15);
     PlayerPtr = new Player(gameMechsPtr);
+    srand(time(nullptr));
 
     //exitflag = false
 }
