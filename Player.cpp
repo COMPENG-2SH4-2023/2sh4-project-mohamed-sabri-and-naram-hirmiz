@@ -1,12 +1,12 @@
 #include "Player.h"
 
 Player::Player(GameMechs* thisGMRef)
-{ /*
+{ 
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-    playerPos.setObjPos(width/2,height/2, '$');
+    playerPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2, '$');
     // more actions to be included
-    */
+    
 }
 
 
@@ -22,9 +22,9 @@ void Player::getPlayerPos(objPos &returnPos)
 }
 
 void Player::updatePlayerDir()
-{ /*
+{ 
     // PPA3 input processing logic   
-    switch (input){
+    switch (mainGameMechsRef->getInput()){
         case 'w':
             if(myDir != UP || myDir != DOWN){
                 myDir = UP;
@@ -48,40 +48,49 @@ void Player::updatePlayerDir()
             break;
             }   
     } 
-    */    
+        
 }
 
 void Player::movePlayer()
-{/*
+{
     // PPA3 Finite State Machine logic
     switch(myDir){
 
         case LEFT:
-            oldx = playerPos.x;
             playerPos.x--;
             break;
 
         case RIGHT:
-            oldx = playerPos.x;
             playerPos.x++;
-            if (playerPos.x >= width - 1) {
+            if (playerPos.x >= mainGameMechsRef->getBoardSizeX() - 1) {
                 playerPos.x = 1;      
             }
             break;
 
         case DOWN:
-            oldy = playerPos.y;
             playerPos.y++;
             break;
 
         case UP:
-            oldy = playerPos.y;
             playerPos.y--;
             break;
 
         default:
             break;
         }
-    */
+        if (playerPos.x < 1){
+        playerPos.x = mainGameMechsRef->getBoardSizeX() - 2;
+    }
+    else if (playerPos.x >= mainGameMechsRef->getBoardSizeX() - 1){
+        playerPos.x = 1;
+    }
+
+    if (playerPos.y >= mainGameMechsRef->getBoardSizeY() - 1) {
+        playerPos.y = 1;
+    }
+    else if (playerPos.y < 1){
+        playerPos.y = mainGameMechsRef->getBoardSizeY() - 2;
+    }
 }
+
 
