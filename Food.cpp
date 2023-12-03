@@ -1,5 +1,7 @@
 #include "Food.h"
 #include "MacUILib.h"
+#include "GameMechs.h"
+
 
 Food::Food()
 {
@@ -12,15 +14,16 @@ Food::~Food()
 }
 
 
-void Food::generateFood(objPos blockOff)
-{
-    GameMechs globalGameMechs;
-    do{
-        foodPos.x = rand() % ((globalGameMechs.getBoardSizeX())-2)+1;
-        foodPos.y = rand() % ((globalGameMechs.getBoardSizeY())-2)+1;
-        foodPos.symbol = 'o';
-    } while(foodPos.isPosEqual(&blockOff) == false);
 
+void Food::generateFood(GameMechs* gameMechsPtr, objPos blockOff)
+{
+    srand(static_cast<unsigned int>(time(nullptr)));
+    
+    do {
+        foodPos.x = rand() % ((gameMechsPtr->getBoardSizeX()) - 2) + 1;
+        foodPos.y = rand() % ((gameMechsPtr->getBoardSizeY()) - 2) + 1;
+        foodPos.symbol = 'o';
+    } while (foodPos.isPosEqual(&blockOff));
 }
 
 void Food::getFoodPos(objPos &returnPos)
