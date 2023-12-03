@@ -28,7 +28,6 @@ void CleanUp(void);
 
 int main(void)
 {
-
     Initialize();
 
     while(!gameMechsPtr->getExitFlagStatus())  
@@ -50,12 +49,7 @@ void Initialize(void)
     MacUILib_clearScreen();
     gameMechsPtr = new GameMechs(30, 15);
     PlayerPtr = new Player(gameMechsPtr);
-
-    
-
-    objPos playerPos;
-    PlayerPtr->getPlayerPos(playerPos);
-    gameMechsPtr->generateFood(playerPos);
+    FoodPtr->generateFood(gameMechsPtr, playerPos);
 
     //exitflag = false
 }
@@ -67,16 +61,17 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    PlayerPtr->updatePlayerDir(); //else continue the game
+    PlayerPtr->updatePlayerDir(); 
     PlayerPtr->movePlayer();
-    //DrawScreen();
+    gameMechsPtr->clearInput();
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();    
-    objPos map;
-    objPos foodPos;
+    objPos map(0, 0, '#');
+    objPos playerPos;
+    objPos FoodPos;
 
     // Draw the top and bottom borders
     for (int i = 0; i < gameMechsPtr->getBoardSizeY(); i++) {
@@ -101,9 +96,10 @@ void DrawScreen(void)
 
             MacUILib_printf("%c", map.getSymbol());
         }
-        MacUILib_printf("\n");
-    }
-    MacUILib_printf("%c", gameMechsPtr->getFoodPos(foodPos));
+    MacUILib_printf("\n");
+   }
+    FoodPtr->getFoodPos(FoodPos);
+    MacUILib_printf("Food: Symbol = %c, X = %d, Y = %d\n", FoodPos.symbol, FoodPos.x, FoodPos.y);
 }
 void LoopDelay(void)
 {
@@ -116,5 +112,6 @@ void CleanUp(void)
     MacUILib_clearScreen();    
     delete gameMechsPtr;
     delete PlayerPtr;
+    delete FoodPtr;
     MacUILib_uninit();
 }
