@@ -2,6 +2,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"  
+#include "Player.h"  
 
 
 using namespace std;
@@ -11,6 +12,7 @@ using namespace std;
 
 // all global variabes to be removed
 GameMechs* gameMechsPtr;
+Player* PlayerPtr;
 
 // const int width = 30;
 // const int height = 15;
@@ -49,6 +51,7 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     gameMechsPtr = new GameMechs(30, 15);
+    PlayerPtr = new Player(gameMechsPtr);
 
     //exitflag = false
 }
@@ -66,65 +69,13 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    char input = gameMechsPtr->getInput();
-/*
-    if (input != 0) // if not null character
-    {
-        switch (input)
-        {
-            case '/': // exit
-                gameMechsPtr->setExitTrue();
-                break; 
-
-            case 'w':
-                if (movement != DOWN)
-                {
-                    movement = UP;
-                }
-                break;
-
-            case 's':
-                if (movement != UP)
-                {
-                    movement = DOWN;
-                }
-                break;
-
-            case 'a':
-                if (movement != right)
-                {
-                    movement = left;
-                }
-                break;
-
-            case 'd':
-                if (movement != left)
-                {
-                    movement = right;
-                }
-                break;
-
-            default:
-                break;
-
-            case '=':
-                if (speed < 5)
-                {
-                    speed++;
-                }
-                break;
-
-            case '-':
-                if (speed > 0)
-                {
-                    speed--;
-                }                
-                break;
-        }
-
-        gameMechsPtr->clearInput();
+    if (gameMechsPtr->ExitButtonPressed()) { //if exit button is pressed, set exitflag = true and terminate the game
+        gameMechsPtr->setExitTrue(); 
+    } else {
+        PlayerPtr->updatePlayerDir(); //else continue the game
+        PlayerPtr->movePlayer();
+        DrawScreen();
     }
-*/
 }
 
 void DrawScreen(void)

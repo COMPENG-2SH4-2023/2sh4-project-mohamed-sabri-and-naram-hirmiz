@@ -59,6 +59,7 @@ class GameMechs
         int getScore();
         void incrementScore(); // assume this increases by 1 for now but later migt change
 
+        bool ExitButtonPressed();
 };
 
 #endif

@@ -24,6 +24,11 @@ bool GameMechs::getExitFlagStatus()
     return exitFlag;
 }
 
+bool GameMechs::ExitButtonPressed()
+{
+    return getInput() == '/';
+}
+
 char GameMechs::getInput()
 {
     return input;
