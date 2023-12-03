@@ -73,8 +73,6 @@ void DrawScreen(void)
     MacUILib_clearScreen();    
     objPos map(0, 0, '#');
     objPos playerPos;
-
-    // Draw the top and bottom borders
     for(int i = 0; i < gameMechsPtr->getBoardSizeY(); i++){
         for(int j = 0; j < gameMechsPtr->getBoardSizeX(); j++){
             if(i == 0 || i == gameMechsPtr->getBoardSizeY() - 1 || j == 0 || j == gameMechsPtr->getBoardSizeX() - 1){
@@ -94,7 +92,6 @@ void DrawScreen(void)
         }
     MacUILib_printf("\n");
    }
-
 }
 
 void LoopDelay(void)
@@ -107,5 +104,6 @@ void CleanUp(void)
 {
     MacUILib_clearScreen();    
     delete gameMechsPtr;
+    delete PlayerPtr;
     MacUILib_uninit();
 }
