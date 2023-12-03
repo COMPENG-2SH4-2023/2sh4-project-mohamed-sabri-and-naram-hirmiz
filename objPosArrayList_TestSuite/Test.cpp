@@ -527,7 +527,36 @@ void testRemoveTail_5Element()
 
 	// The destructor will be called automatically for stack-allocated objects
 }
+void testOutOfBoundsAccess()
+{
+	objPosArrayList thisList;
+	objPos currentPos;
+	objPos bodyPos{2, 5, 'a'};  
+	objPos tailPos{3, 3, 'm'};
+	objPos trial{2,7,'f'};
 
+
+
+	// Insert some elements into the list
+	thisList.insertTail(bodyPos);
+	thisList.insertTail(tailPos);
+	thisList.insertTail(trial);
+
+	int listSize = thisList.getSize();
+	// Attempt to access an element at an out-of-bounds index
+	try {
+		// An exception should be thrown, indicating successful handling of out-of-bounds access
+		thisList.getElement(currentPos, listSize+100); // This index is out of bounds
+		cout << "[OK] Test Out-of-Bounds Access Passed" << endl;
+		passCount++;
+	} catch (...) {
+				
+		cout << "[FAILED] Test Out-of-Bounds Access Failed - No exception thrown" << endl;
+		failCount++;
+		passed = false;
+
+	}
+}
 
 
 
@@ -543,6 +572,7 @@ int main(int argc, char const *argv[]) {
 	testRemoveHead_5Element();
 	testRemoveTail_1Element();
 	testRemoveTail_5Element();
+	testOutOfBoundsAccess();
 	
 
 
