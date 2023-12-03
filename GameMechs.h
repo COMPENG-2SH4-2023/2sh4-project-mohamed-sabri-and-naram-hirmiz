@@ -28,9 +28,6 @@ class GameMechs
         int boardSizeY;
 
     public:
-        // width and height 
-        static const int width = 30;
-        static const int height = 15;
         
         // constructor
         GameMechs();
@@ -57,7 +54,7 @@ class GameMechs
 
         // Getter and Setter for Score
         int getScore();
-        void incrementScore(); // assume this increases by 1 for now but later migt change
+        void incrementScore(); // assume this increases by 1 for now but later might change
 
         bool ExitButtonPressed();
 };
