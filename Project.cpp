@@ -81,9 +81,9 @@ void DrawScreen(void)
     objPos FoodPos;
 
     // Draw the top and bottom borders
-    for(int i = 0; i < gameMechsPtr->getBoardSizeY(); i++){
-        for(int j = 0; j < gameMechsPtr->getBoardSizeX(); j++){
-            if(i == 0 || i == gameMechsPtr->getBoardSizeY() - 1 || j == 0 || j == gameMechsPtr->getBoardSizeX() - 1){
+    for (int i = 0; i < gameMechsPtr->getBoardSizeY(); i++) {
+        for (int j = 0; j < gameMechsPtr->getBoardSizeX(); j++) {
+            if (i == 0 || i == gameMechsPtr->getBoardSizeY() - 1 || j == 0 || j == gameMechsPtr->getBoardSizeX() - 1) {
                 map.setObjPos(i, j, '#');
             }
             else {
@@ -92,14 +92,21 @@ void DrawScreen(void)
                     map.setObjPos(i, j, '$');
                 }
                 else {
-                    map.setObjPos(i, j, ' ');
+                    FoodPtr->getFoodPos(FoodPos);
+                    if (i == FoodPos.y && j == FoodPos.x) {
+                        map.setObjPos(i, j, 'o');
+                    }
+                    else {
+                        map.setObjPos(i, j, ' ');
+                    }
                 }
             }
             map.getObjPos(map);
             MacUILib_printf("%c", map.getSymbol());
         }
-    MacUILib_printf("\n");
-   }
+        MacUILib_printf("\n");
+    }
+
     FoodPtr->getFoodPos(FoodPos);
     MacUILib_printf("Food: Symbol = %c, X = %d, Y = %d\n", FoodPos.symbol, FoodPos.x, FoodPos.y);
 }

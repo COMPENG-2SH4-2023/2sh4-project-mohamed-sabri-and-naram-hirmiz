@@ -67,5 +67,3 @@ void GameMechs::clearInput()
 {
     input = 0;
 }
-
-
