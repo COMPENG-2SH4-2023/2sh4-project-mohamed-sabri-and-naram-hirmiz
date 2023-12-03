@@ -1,11 +1,15 @@
 #include "Player.h"
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef, Food* foodPtr)
 { 
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
-    playerPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2, '$');
+    objPos tempPos;
+    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2, '$');
     // more actions to be included
+    playerPosList = new objPosArrayList();
+    playerPosList->insertHead(tempPos);
+    FoodPtr = foodPtr;
     
 }
 
@@ -13,11 +17,13 @@ Player::Player(GameMechs* thisGMRef)
 Player::~Player()
 {
     // delete any heap members here
+    delete playerPosList;
+    delete FoodPtr;
 }
 
-void Player::getPlayerPos(objPos &returnPos)
+objPosArrayList* Player::getPlayerPos()
 {
-    returnPos.setObjPos(playerPos.x,playerPos.y,playerPos.symbol);
+    return playerPosList;
     // return the reference to the playerPos arrray list
 }
 
@@ -61,43 +67,57 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
+    objPos Head;
+    playerPosList->getHeadElement(Head);
     // PPA3 Finite State Machine logic
     switch(myDir){
 
         case LEFT:
-            playerPos.x--;
+            Head.x--;
             break;
 
         case RIGHT:
-            playerPos.x++;
+            Head.x++;
             break;
 
         case DOWN:
-            playerPos.y++;
+            Head.y++;
             break;
 
         case UP:
-            playerPos.y--;
+            Head.y--;
             break;
 
         default:
             break;
         }
-        if (playerPos.x < 1){
-        playerPos.x = mainGameMechsRef->getBoardSizeX() - 1;
+        if (Head.x < 1){
+        Head.x = mainGameMechsRef->getBoardSizeX() - 2;
         }
-        else if (playerPos.x >= mainGameMechsRef->getBoardSizeX() - 1){
-            playerPos.x = 1;
+        else if (Head.x >= mainGameMechsRef->getBoardSizeX()){
+            Head.x = 1;
         }
 
-        if (playerPos.y >= mainGameMechsRef->getBoardSizeY() - 1) {
-            playerPos.y = 1;
+        if (Head.y >= mainGameMechsRef->getBoardSizeY()) {
+            Head.y = 1;
         }
-        else if (playerPos.y < 1){
-            playerPos.y = mainGameMechsRef->getBoardSizeY() - 1;
+        else if (Head.y < 1){
+            Head.y = mainGameMechsRef->getBoardSizeY() - 2;
         
         }
-        
+
+    
+    objPos FoodPos;
+    FoodPtr->getFoodPos(FoodPos);
+    if (Head.isPosEqual(&FoodPos)) {
+        playerPosList->insertHead(Head);
+        FoodPtr->generateFood(mainGameMechsRef, Head);
+    }
+    else{
+    playerPosList->insertHead(Head);
+    playerPosList-> removeTail();
+    }
+
 }
 
 

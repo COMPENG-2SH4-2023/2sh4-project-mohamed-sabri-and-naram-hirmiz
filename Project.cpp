@@ -4,6 +4,7 @@
 #include "GameMechs.h"  
 #include "Player.h" 
 #include "Food.h" 
+#include "objPosArrayList.h"
 
 
 using namespace std;
@@ -54,8 +55,8 @@ void Initialize(void)
     gameMechsPtr = new GameMechs(30, 15);
     FoodPtr = new Food();
 
-    objPos playerPos;
-    PlayerPtr = new Player(gameMechsPtr);
+    objPos playerPos{-1,-1, 'o'};
+    PlayerPtr = new Player(gameMechsPtr, FoodPtr);
     FoodPtr->generateFood(gameMechsPtr, playerPos);
 
     //exitflag = false
@@ -75,30 +76,38 @@ void RunLogic(void)
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();   
+    bool drawn; 
     objPos map(0, 0, '#');
+    objPosArrayList* playerBody = PlayerPtr->getPlayerPos();
+    objPos tempBody;
     objPos playerPos;
     objPos FoodPos;
 
     // Draw the top and bottom borders
     for (int i = 0; i < gameMechsPtr->getBoardSizeY(); i++) {
         for (int j = 0; j < gameMechsPtr->getBoardSizeX(); j++) {
-            if (i == 0 || i == gameMechsPtr->getBoardSizeY() - 1 || j == 0 || j == gameMechsPtr->getBoardSizeX() - 1) {
-                map.setObjPos(i, j, '#');
+            drawn = false;
+            for (int k=0; k< playerBody->getSize(); k++){
+                playerBody->getElement(tempBody, k);
+                if(tempBody.x == j && tempBody.y == i){
+                    map.setObjPos(i, j, tempBody.symbol);
+                    drawn = true;
+                    break;
+                }
             }
-            else {
-                PlayerPtr->getPlayerPos(playerPos);
-                if (i == playerPos.y && j == playerPos.x) {
-                    map.setObjPos(i, j, '$');
+            if(!drawn){
+                if (i == 0 || i == gameMechsPtr->getBoardSizeY() - 1 || j == 0 || j == gameMechsPtr->getBoardSizeX() - 1) {
+                map.setObjPos(i, j, '#');
                 }
                 else {
-                    FoodPtr->getFoodPos(FoodPos);
-                    if (i == FoodPos.y && j == FoodPos.x) {
-                        map.setObjPos(i, j, 'o');
-                    }
-                    else {
-                        map.setObjPos(i, j, ' ');
-                    }
+                        FoodPtr->getFoodPos(FoodPos);
+                        if (i == FoodPos.y && j == FoodPos.x) {
+                            map.setObjPos(i, j, 'o');
+                        }
+                        else {
+                            map.setObjPos(i, j, ' ');
+                        }
                 }
             }
             map.getObjPos(map);
@@ -106,7 +115,11 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-
+    MacUILib_printf("Player Position:\n");
+    for(int l =0; l<playerBody->getSize();l++){
+        playerBody -> getElement(tempBody, l);
+        MacUILib_printf("<%d,%d>", tempBody.x, tempBody.y);
+    }
     FoodPtr->getFoodPos(FoodPos);
     MacUILib_printf("Food: Symbol = %c, X = %d, Y = %d\n", FoodPos.symbol, FoodPos.x, FoodPos.y);
 }
