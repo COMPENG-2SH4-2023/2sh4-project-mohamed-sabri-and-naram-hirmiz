@@ -31,7 +31,7 @@ int main(void)
 {
 
     Initialize();
-
+    
     while(!gameMechsPtr->getExitFlagStatus())  
     {
         GetInput();
@@ -58,25 +58,14 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    char input;
-    
-    if (MacUILib_hasChar())
-    {
-        input = MacUILib_getChar();
-        gameMechsPtr->setInput(input); 
-    }
+    gameMechsPtr->getInput();
 }
 
 void RunLogic(void)
 {
-    if (gameMechsPtr->ExitButtonPressed()) { //if exit button is pressed, set exitflag = true and terminate the game
-        gameMechsPtr->setExitTrue(); 
-    } else {
-        PlayerPtr->updatePlayerDir(); //else continue the game
-        PlayerPtr->movePlayer();
-        gameMechsPtr->clearInput();
-        //DrawScreen();
-    }
+    PlayerPtr->updatePlayerDir(); //else continue the game
+    PlayerPtr->movePlayer();
+    //DrawScreen();
 }
 
 void DrawScreen(void)
@@ -84,25 +73,25 @@ void DrawScreen(void)
     MacUILib_clearScreen();    
     objPos map(0, 0, '#');
     objPos playerPos;
-    PlayerPtr->getPlayerPos(playerPos);
-    // Draw the top and bottom borders
     for(int i = 0; i < gameMechsPtr->getBoardSizeY(); i++){
         for(int j = 0; j < gameMechsPtr->getBoardSizeX(); j++){
             if(i == 0 || i == gameMechsPtr->getBoardSizeY() - 1 || j == 0 || j == gameMechsPtr->getBoardSizeX() - 1){
                 map.setObjPos(i, j, '#');
             }
-            else if (i == playerPos.y && j == playerPos.x) {
+            else {
+                PlayerPtr->getPlayerPos(playerPos);
+                if (i == playerPos.y && j == playerPos.x) {
                     map.setObjPos(i, j, '$');
                 }
-            else {
-                map.setObjPos(i, j, ' ');
+                else {
+                    map.setObjPos(i, j, ' ');
+                }
             }
+            map.getObjPos(map);
+            MacUILib_printf("%c", map.getSymbol());
         }
-        map.getObjPos(map);
-        MacUILib_printf("%c", map.getSymbol());
-    }
     MacUILib_printf("\n");
-
+   }
 }
 
 void LoopDelay(void)
