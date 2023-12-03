@@ -74,6 +74,7 @@ void RunLogic(void)
     } else {
         PlayerPtr->updatePlayerDir(); //else continue the game
         PlayerPtr->movePlayer();
+        gameMechsPtr->clearInput();
         //DrawScreen();
     }
 }
@@ -83,27 +84,24 @@ void DrawScreen(void)
     MacUILib_clearScreen();    
     objPos map(0, 0, '#');
     objPos playerPos;
-
+    PlayerPtr->getPlayerPos(playerPos);
     // Draw the top and bottom borders
     for(int i = 0; i < gameMechsPtr->getBoardSizeY(); i++){
         for(int j = 0; j < gameMechsPtr->getBoardSizeX(); j++){
             if(i == 0 || i == gameMechsPtr->getBoardSizeY() - 1 || j == 0 || j == gameMechsPtr->getBoardSizeX() - 1){
                 map.setObjPos(i, j, '#');
             }
-            else {
-                PlayerPtr->getPlayerPos(playerPos);
-                if (i == playerPos.y && j == playerPos.x) {
+            else if (i == playerPos.y && j == playerPos.x) {
                     map.setObjPos(i, j, '$');
                 }
-                else {
-                    map.setObjPos(i, j, ' ');
-                }
+            else {
+                map.setObjPos(i, j, ' ');
             }
-            map.getObjPos(map);
-            MacUILib_printf("%c", map.getSymbol());
         }
+        map.getObjPos(map);
+        MacUILib_printf("%c", map.getSymbol());
+    }
     MacUILib_printf("\n");
-   }
 
 }
 
@@ -117,5 +115,6 @@ void CleanUp(void)
 {
     MacUILib_clearScreen();    
     delete gameMechsPtr;
+    delete PlayerPtr;
     MacUILib_uninit();
 }
