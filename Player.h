@@ -3,8 +3,10 @@
 
 #include "GameMechs.h"
 #include "objPos.h"
+#include "Food.h"
 #include "objPosArrayList.h"
 
+class Food;
 class Player
 {
     // Construct the remaining declaration from the project manual.

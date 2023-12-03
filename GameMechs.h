@@ -26,9 +26,11 @@ class GameMechs
 
         int boardSizeX;
         int boardSizeY;
+        objPosArrayList* snakeBody; //storing snakebody
 
     public:
 
+        objPosArrayList* getSnakeBody(); 
         // constructor
         GameMechs();
         GameMechs(int boardX, int boardY);

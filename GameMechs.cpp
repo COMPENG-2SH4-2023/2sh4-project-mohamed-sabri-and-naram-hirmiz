@@ -11,12 +11,19 @@ GameMechs::GameMechs(int boardX, int boardY)
     exitFlag = false; 
     boardSizeX = boardX; 
     boardSizeY = boardY;
+    snakeBody = new objPosArrayList();
 }
 
 // do you need a destructor?
 GameMechs::~GameMechs()
 {
+    delete snakeBody;
 //     Perform cleanup if needed
+}
+
+objPosArrayList* GameMechs::getSnakeBody()
+{
+    return snakeBody;
 }
 
 
