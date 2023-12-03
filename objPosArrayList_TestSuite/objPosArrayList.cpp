@@ -55,7 +55,8 @@ void objPosArrayList::removeHead()
 
 void objPosArrayList::removeTail()
 {
-        if (listSize > 0) {
+    if (listSize > 0) {
+        aList[listSize - 1].setObjPos(0, 0, 0);
         listSize--;
     }
 }
@@ -72,7 +73,7 @@ void objPosArrayList::getTailElement(objPos &returnPos)
 
 void objPosArrayList::getElement(objPos &returnPos, int index)
 {
-    if(index>=0 || index<listSize){
+    if(index>=0 && index<listSize){
         returnPos.setObjPos(aList[index]);
     }
 }
