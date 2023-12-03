@@ -54,7 +54,7 @@ class GameMechs
 
         // Getter and Setter for Score
         int getScore();
-        void incrementScore(); // assume this increases by 1 for now but later migt change
+        void incrementScore(); // assume this increases by 1 for now but later might change
 };
 
 #endif
