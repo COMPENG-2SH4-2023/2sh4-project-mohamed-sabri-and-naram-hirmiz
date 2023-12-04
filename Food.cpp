@@ -44,10 +44,18 @@ void Food::generateFood(GameMechs* gameMechsPtr, objPos blockOff)
                 break;
             }
         }
+
+        // Check if the food position coincides with the head of the snake
+        objPos headPos;
+        snakeBody->getHeadElement(headPos);
+        if (foodPos.isPosEqual(&headPos)) {
+            spawnOnSnake = true;
+        }
     } while (spawnOnSnake);
 
     // At this point, the loop ensures that foodPos is a valid position
 }
+
 void Food::getFoodPos(objPos &returnPos)
 {
     returnPos.setObjPos(foodPos.x, foodPos.y, foodPos.symbol);
