@@ -4,13 +4,16 @@
 GameMechs::GameMechs()
 {
     exitFlag = false;
+    loseFlag = false;
+    score = 0;
     input = 0;
-    loseflag = false;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
     exitFlag = false;
+    loseFlag = false;
+    input =0;
     boardSizeX = boardX; 
     boardSizeY = boardY;
     snakeBody = new objPosArrayList();
@@ -36,7 +39,7 @@ bool GameMechs::getExitFlagStatus()
 
 bool GameMechs::getLoseFlagStatus()
 {
-    return loseflag;
+    return loseFlag;
 }
 
 char GameMechs::getInput()
@@ -65,7 +68,10 @@ int GameMechs::getBoardSizeY()
 {
     return boardSizeY;
 }
-
+int GameMechs::getScore()
+{
+    return score;
+}
 
 void GameMechs::setExitTrue()
 {
@@ -73,7 +79,7 @@ void GameMechs::setExitTrue()
 }
 void GameMechs::setLoseFlag()
 {
-    loseflag = true;
+    loseFlag = true;
 }
 
 void GameMechs::setInput(char this_input)
@@ -84,4 +90,9 @@ void GameMechs::setInput(char this_input)
 void GameMechs::clearInput()
 {
     input = 0;
+}
+void GameMechs::incrementScore()
+{
+    
+    score+=1;
 }

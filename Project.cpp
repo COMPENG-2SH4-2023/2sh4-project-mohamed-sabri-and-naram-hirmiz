@@ -27,6 +27,7 @@ void RunLogic(void);
 void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
+void PrintEnd(void);
 
 
 
@@ -40,8 +41,8 @@ int main(void)
         RunLogic();
         DrawScreen();
         LoopDelay();
+        PrintEnd();
     }
-
     CleanUp();
 
 }
@@ -114,12 +115,15 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    for(int l =0; l<playerBody->getSize();l++){
-        playerBody -> getElement(tempBody, l);
-    }
     MacUILib_printf("\nScore: %d\n",playerBody->getSize()-1);
+
     FoodPtr->getFoodPos(FoodPos);
     MacUILib_printf("Food: Symbol = %c, X = %d, Y = %d\n", FoodPos.symbol, FoodPos.x, FoodPos.y);
+
+    if (gameMechsPtr->getLoseFlagStatus()== true) {
+        PrintEnd();
+    }
+    
 }
 
 void LoopDelay(void)
@@ -135,4 +139,11 @@ void CleanUp(void)
     delete PlayerPtr;
     delete FoodPtr;
     MacUILib_uninit();
+}
+
+void PrintEnd(void)
+{
+    MacUILib_printf("Game Over! You Lose!\n");
+    MacUILib_Delay(500000000);
+
 }
