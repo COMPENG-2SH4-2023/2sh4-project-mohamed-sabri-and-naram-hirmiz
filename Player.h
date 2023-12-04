@@ -3,10 +3,10 @@
 
 #include "GameMechs.h"
 #include "objPos.h"
+#include "Food.h"
 #include "objPosArrayList.h"
 
-class Food;  // Forward declaration
-
+class Food;
 class Player
 {
     public:
