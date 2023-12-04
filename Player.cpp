@@ -117,7 +117,15 @@ void Player::movePlayer()
     playerPosList->insertHead(Head);
     playerPosList-> removeTail();
     }
-
+    //Create a new objPos to compare the head's position with its body
+    objPos playerTemp;
+    for(int i = 1; i<playerPosList->getSize();i++){
+        playerPosList->getElement(playerTemp, i);
+        if(Head.isPosEqual(&playerTemp)) {
+            mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
+        }
+    }
 }
 
 
