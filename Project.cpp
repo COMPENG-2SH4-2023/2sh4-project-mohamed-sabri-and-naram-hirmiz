@@ -143,6 +143,7 @@ void CleanUp(void)
 
 void PrintEnd(void)
 {
+    MacUILib_Delay(500000000);
     MacUILib_printf("Game Over! You Lose!\n");
     MacUILib_Delay(500000000);
 
