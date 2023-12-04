@@ -114,11 +114,10 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    MacUILib_printf("Player Position:\n");
     for(int l =0; l<playerBody->getSize();l++){
         playerBody -> getElement(tempBody, l);
-        MacUILib_printf("<%d,%d>", tempBody.x, tempBody.y);
     }
+    MacUILib_printf("\nScore: %d\n",playerBody->getSize()-1);
     FoodPtr->getFoodPos(FoodPos);
     MacUILib_printf("Food: Symbol = %c, X = %d, Y = %d\n", FoodPos.symbol, FoodPos.x, FoodPos.y);
 }
