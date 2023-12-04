@@ -111,7 +111,7 @@ void Player::movePlayer()
     FoodPtr->getFoodPos(FoodPos);
     if (Head.isPosEqual(&FoodPos)) {
         playerPosList->insertHead(Head);
-        FoodPtr->generateFood(mainGameMechsRef, Head);
+        FoodPtr->generateFood(mainGameMechsRef, playerPosList);
     }
     else{
     playerPosList->insertHead(Head);

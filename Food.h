@@ -6,20 +6,21 @@
 #include "objPos.h"
 #include "objPosArrayList.h"
 #include "GameMechs.h"
-#include "Player.h"
-#include "MacUILib.h"
+
+class Player;  // Forward declaration
 
 class Food
 {
-    private:
-        objPos foodPos;
+private:
+    objPos foodPos;
+    GameMechs* gameMechsPtr;
 
-    public:
-        Food();
-        ~Food();
-        void generateFood(objPosArrayList* blockOff);
-        void getFoodPos(objPos& returnPos);
-        void setGameMechs(GameMechs* gameMechs);
+public:
+    Food();
+    ~Food();
+    void generateFood(GameMechs* gameMechs, objPosArrayList* playerPosList);
+    void getFoodPos(objPos& returnPos);
+    void setGameMechs(GameMechs* gameMechs);
 };
 
 #endif

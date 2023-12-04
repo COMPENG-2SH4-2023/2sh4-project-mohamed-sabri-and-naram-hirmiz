@@ -56,7 +56,7 @@ void Initialize(void)
     FoodPtr = new Food();
 
     PlayerPtr = new Player(gameMechsPtr, FoodPtr);
-    FoodPtr->generateFood(gameMechsPtr, playerPos);
+    FoodPtr->generateFood(gameMechsPtr, PlayerPtr->getPlayerPos());
 
     //exitflag = false
 }
