@@ -5,16 +5,12 @@
 #include "objPos.h"
 #include "objPosArrayList.h"
 
+class Food;  // Forward declaration
+
 class Player
 {
-    // Construct the remaining declaration from the project manual.
-
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
-
     public:
-        enum Dir {UP, DOWN, LEFT, RIGHT, STOP};  // This is the direction state
+        enum Dir { UP, DOWN, LEFT, RIGHT, STOP };  // This is the direction state
 
         Player(GameMechs* thisGMRef, Food* foodPtr);
         ~Player();
@@ -26,7 +22,7 @@ class Player
     private:
         objPosArrayList* playerPosList;   // Upgrade this in iteration 3.       
         enum Dir myDir;
-        
+
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
         Food* FoodPtr;

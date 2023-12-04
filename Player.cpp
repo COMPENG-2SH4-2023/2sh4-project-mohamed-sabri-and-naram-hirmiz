@@ -94,11 +94,11 @@ void Player::movePlayer()
         if (Head.x < 1){
         Head.x = mainGameMechsRef->getBoardSizeX() - 2;
         }
-        else if (Head.x >= mainGameMechsRef->getBoardSizeX()){
+        else if (Head.x >= mainGameMechsRef->getBoardSizeX()-1){
             Head.x = 1;
         }
 
-        if (Head.y >= mainGameMechsRef->getBoardSizeY()) {
+        if (Head.y >= mainGameMechsRef->getBoardSizeY()-1) {
             Head.y = 1;
         }
         else if (Head.y < 1){

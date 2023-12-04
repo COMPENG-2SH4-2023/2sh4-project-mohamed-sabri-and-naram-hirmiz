@@ -55,7 +55,6 @@ void Initialize(void)
     gameMechsPtr = new GameMechs(30, 15);
     FoodPtr = new Food();
 
-    objPos playerPos{-1,-1, 'o'};
     PlayerPtr = new Player(gameMechsPtr, FoodPtr);
     FoodPtr->generateFood(gameMechsPtr, playerPos);
 
